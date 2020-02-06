@@ -1,5 +1,6 @@
 package com.epicteck.ajayimajebijoshua.viewholders;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,33 +43,38 @@ public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         gender.setText(StringUtil.toFirstUpper(filter.getGender()));
 
-        StringBuilder countrys = new StringBuilder();
+        if(filter.getCountries().size()>0){
+            StringBuilder countrys = new StringBuilder();
 
-        for(int i=0; i<filter.getCountries().size(); i++){
-            if(i==filter.getCountries().size()-1){
-                //dont add a , if its the last index
-                countrys.append(StringUtil.toFirstUpper(filter.getCountries().get(i)));
+            for(int i=0; i<filter.getCountries().size(); i++){
+                if(i==filter.getCountries().size()-1){
+                    //dont add a , if its the last index
+                    countrys.append(StringUtil.toFirstUpper(filter.getCountries().get(i)));
+                }
+                else{
+                    countrys.append(StringUtil.toFirstUpper(filter.getCountries().get(i))).append(", ");
+                }
             }
-            else{
-                countrys.append(StringUtil.toFirstUpper(filter.getCountries().get(i))).append(", ");
-            }
+
+            countries.setText(countrys.toString());
         }
 
-        countries.setText(countrys.toString());
+        if(filter.getColors().size()>0){
+            StringBuilder colors = new StringBuilder();
 
-        StringBuilder colors = new StringBuilder();
+            for(int j=0; j<filter.getColors().size(); j++){
 
-        for(int i=0; i<filter.getColors().size(); i++){
-            if(i==filter.getColors().size()-1){
-                //dont add a , if its the last index
-                colors.append(StringUtil.toFirstUpper(filter.getCountries().get(i)));
+                if(j==filter.getColors().size()-1){
+                    //dont add a , if its the last index
+                    colors.append(StringUtil.toFirstUpper(filter.getColors().get(j)));
+                }
+                else{
+                    colors.append(StringUtil.toFirstUpper(filter.getColors().get(j))).append(", ");
+                }
             }
-            else{
-                colors.append(StringUtil.toFirstUpper(filter.getColors().get(i))).append(", ");
-            }
+
+            color.setText(colors.toString());
         }
-
-        color.setText(colors.toString());
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

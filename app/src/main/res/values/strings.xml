@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">AjayiMajebiJoshua</string>
+    <string name="app_name">Ajayi-Majebi Joshua</string>
     <string name="file_not_found_error">Excel File Not found</string>
+    <string name="base_url">https://ven10.co/</string>
     <string name="date_str">Date Range:</string>
     <string name="gender_str">Gender:</string>
     <string name="countries_str">Countries:</string>
     <string name="color_str">Color:</string>
+    <string name="filter_string">filter_string</string>
 </resources>

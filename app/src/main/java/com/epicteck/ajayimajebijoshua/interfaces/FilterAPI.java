@@ -8,6 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface FilterAPI {
-    @GET("https://ven10.co/assessment/filter.json")
+    @GET("assessment/filter.json")
     Call<List<Filter>> getFilters();
 }

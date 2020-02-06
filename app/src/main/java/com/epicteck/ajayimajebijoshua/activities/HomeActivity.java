@@ -1,5 +1,6 @@
 package com.epicteck.ajayimajebijoshua.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.epicteck.ajayimajebijoshua.adapters.FilterAdapter;
 import com.epicteck.ajayimajebijoshua.interfaces.FilterAPI;
 import com.epicteck.ajayimajebijoshua.interfaces.FilterItemClickedListener;
 import com.epicteck.ajayimajebijoshua.models.Filter;
+import com.epicteck.ajayimajebijoshua.utils.FilterGson;
 import com.epicteck.ajayimajebijoshua.utils.HandleLoading;
 
 import java.io.IOException;
@@ -60,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         filterAdapter = new FilterAdapter(this, filters_list, new FilterItemClickedListener() {
             @Override
             public void onItemClicked(Filter filter) {
-
+                goToFilter(filter);
             }
         });
 
@@ -84,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client.build())
+                .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -120,6 +123,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Filter>> call, Throwable t) {
                 HandleLoading.hideLoading();
+            }
+        });
+    }
+
+    private void goToFilter(Filter f){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(HomeActivity.this, FilterActivity.class);
+                intent.putExtra(getString(R.string.filter_string) , FilterGson.getGson().toJson(f));
+                startActivity(intent);
             }
         });
     }
