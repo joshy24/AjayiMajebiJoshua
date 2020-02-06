@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.epicteck.ajayimajebijoshua.R;
 import com.epicteck.ajayimajebijoshua.adapters.FilterAdapter;
 import com.epicteck.ajayimajebijoshua.interfaces.FilterAPI;
+import com.epicteck.ajayimajebijoshua.interfaces.FilterItemClickedListener;
 import com.epicteck.ajayimajebijoshua.models.Filter;
 import com.epicteck.ajayimajebijoshua.utils.HandleLoading;
 
@@ -56,8 +57,14 @@ public class HomeActivity extends AppCompatActivity {
 
         recycler_view.setLayoutManager(linearLayoutManager);
 
+        filterAdapter = new FilterAdapter(this, filters_list, new FilterItemClickedListener() {
+            @Override
+            public void onItemClicked(Filter filter) {
 
-        recycler_view.setAdapter(ordersAdapter);
+            }
+        });
+
+        recycler_view.setAdapter(filterAdapter);
 
         HandleLoading.showLoading(this.getSupportFragmentManager());
 
@@ -95,7 +102,15 @@ public class HomeActivity extends AppCompatActivity {
                     case 403:
                         break;
                     case 200:
-
+                         if(response.body().size()>0){
+                             //we have something
+                             filters_list.clear();
+                             filters_list.addAll(response.body());
+                             filterAdapter.setFilters(response.body());
+                         }
+                         else{
+                             //we dont have anything
+                         }
                     case 400:
                         break;
                     case 404:
